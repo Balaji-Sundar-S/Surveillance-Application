@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'color.dart' as Color;
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -48,20 +49,22 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.AppColor.homePageBackground,
       appBar: AppBar(
-        backgroundColor: Colors.purple[900],
+        backgroundColor: Color.AppColor.circuitsColor,
+        foregroundColor: Colors.white,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: Text(
               'Enter Your Email and we will send you a password reset link:',
               style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple),
+                  color: Color.AppColor.secondPageContainerGradient2ndColor),
               textAlign: TextAlign.center,
             ),
           ),
@@ -71,7 +74,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             child: TextField(
               controller: email,
               decoration: InputDecoration(
-                fillColor: Colors.purple[200],
+                fillColor: Color.AppColor.secondPageTopIconColor,
                 filled: true,
                 enabledBorder: OutlineInputBorder(
                     borderSide: const BorderSide(color: Colors.blueGrey),
@@ -90,7 +93,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           ),
           MaterialButton(
             onPressed: passwordReset,
-            color: Colors.deepPurple[200],
+            color: Color.AppColor.circuitsColor,
+            splashColor: Colors.white,
+            textColor: Colors.white,
             child: const Text(
               'Reset Password',
               style: TextStyle(fontSize: 20.0),

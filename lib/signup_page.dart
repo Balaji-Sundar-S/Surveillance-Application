@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:login_page/login_page.dart';
+import 'color.dart' as Color;
 
 class SignUserUp extends StatefulWidget {
-  const SignUserUp({super.key, required void showLoginPage});
+  final VoidCallback showLoginPage;
+
+  const SignUserUp({super.key, required this.showLoginPage});
 
   @override
   State<SignUserUp> createState() => _SignUserUpState();
@@ -13,44 +15,55 @@ class SignUserUp extends StatefulWidget {
 class _SignUserUpState extends State<SignUserUp> {
   final email = TextEditingController();
   final pwd = TextEditingController();
+  final confirmpwd = TextEditingController();
+  bool _obscureText = true;
 
   @override
   void dispose() {
     email.dispose();
     pwd.dispose();
+    confirmpwd.dispose();
     super.dispose();
   }
 
   Future signUserUp() async {
+    if (passwordConfirmed()) {
+      try {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: email.text.trim(), password: pwd.text.trim());
+        if (context.mounted) Navigator.pop(context);
+      } on FirebaseAuthException catch (e) {
+        Navigator.of(context).pop();
+        displayMessage(e.code);
+      }
+    }
+  }
+
+  void displayMessage(String message) {
     showDialog(
         context: context,
         builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return AlertDialog(
+            title: Text(message),
           );
         });
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email.text.trim(), password: pwd.text.trim());
-    } on FirebaseAuthException catch (e) {
-      if (kDebugMode) {
-        print(e);
-        showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                content: Text(e.message.toString()),
-              );
-            });
-      }
+  }
+
+  bool passwordConfirmed() {
+    if (pwd.text.trim() == confirmpwd.text.trim()) {
+      return true;
+    } else {
+      return false;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color.AppColor.homePageBackground,
         appBar: AppBar(
-          backgroundColor: Colors.purple[900],
+          backgroundColor: Color.AppColor.circuitsColor,
+          foregroundColor: Colors.white,
         ),
         body: SafeArea(
           child: Center(
@@ -73,7 +86,7 @@ class _SignUserUpState extends State<SignUserUp> {
                 child: TextField(
                   controller: email,
                   decoration: InputDecoration(
-                    fillColor: Colors.purple[200],
+                    fillColor: Color.AppColor.secondPageTopIconColor,
                     filled: true,
                     enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.blueGrey),
@@ -82,7 +95,7 @@ class _SignUserUpState extends State<SignUserUp> {
                         borderSide: const BorderSide(color: Colors.green),
                         borderRadius: BorderRadius.circular(20.0)),
                     prefixIcon: const Icon(Icons.account_circle_sharp),
-                    labelText: 'username',
+                    labelText: 'Email',
                     labelStyle: TextStyle(
                       color: Colors.grey[900],
                       fontSize: 20.0,
@@ -95,11 +108,11 @@ class _SignUserUpState extends State<SignUserUp> {
                     const EdgeInsets.symmetric(vertical: 0.0, horizontal: 25.0),
                 child: TextField(
                   controller: pwd,
-                  obscureText: true,
+                  obscureText: _obscureText,
                   enableSuggestions: false,
                   autocorrect: false,
                   decoration: InputDecoration(
-                    fillColor: Colors.purple[200],
+                    fillColor: Color.AppColor.secondPageTopIconColor,
                     filled: true,
                     enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.blueGrey),
@@ -108,7 +121,17 @@ class _SignUserUpState extends State<SignUserUp> {
                         borderSide: const BorderSide(color: Colors.green),
                         borderRadius: BorderRadius.circular(20.0)),
                     prefixIcon: const Icon(Icons.password),
-                    labelText: 'password',
+                    labelText: 'Password',
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscureText ? Icons.visibility : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                    ),
                     labelStyle: TextStyle(
                       color: Colors.grey[900],
                       fontSize: 20.0,
@@ -116,29 +139,58 @@ class _SignUserUpState extends State<SignUserUp> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 15.0,
-              ),
-              SizedBox(
-                height: 55.0,
-                width: 360.0,
-                child: ElevatedButton(
-                  onPressed: () {
-                    signUserUp();
-                  },
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.purple[900]!),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    )),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 15.0, horizontal: 25.0),
+                child: TextField(
+                  controller: confirmpwd,
+                  obscureText: _obscureText,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  decoration: InputDecoration(
+                    fillColor: Color.AppColor.secondPageTopIconColor,
+                    filled: true,
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.blueGrey),
+                        borderRadius: BorderRadius.circular(20.0)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.green),
+                        borderRadius: BorderRadius.circular(20.0)),
+                    prefixIcon: const Icon(Icons.password),
+                    labelText: 'Confirm Password',
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscureText ? Icons.visibility : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                    ),
+                    labelStyle: TextStyle(
+                      color: Colors.grey[900],
+                      fontSize: 20.0,
+                    ),
                   ),
-                  child: const Text(
-                    'Sign Up',
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      color: Colors.white,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: GestureDetector(
+                  onTap: signUserUp,
+                  child: Container(
+                    height: 55.0,
+                    width: 360.0,
+                    decoration: BoxDecoration(
+                      color: Color.AppColor.circuitsColor,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'Sign Up',
+                        style: TextStyle(fontSize: 25.0, color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
@@ -155,20 +207,19 @@ class _SignUserUpState extends State<SignUserUp> {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          InkWell(
+                          GestureDetector(
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return const LoginPage(
-                                  showRegisterPage: null,
-                                );
+                                return LoginPage(showRegisterPage: () {});
                               }));
                             },
                             child: Text(
-                              "Log In",
+                              "SIGN IN",
                               style: TextStyle(
                                 fontSize: 17.0,
-                                color: Colors.purple[600],
+                                color: Color.AppColor
+                                    .secondPageContainerGradient2ndColor,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

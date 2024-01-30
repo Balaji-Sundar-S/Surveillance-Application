@@ -2,9 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login_page/forgot_password_page.dart';
 import 'package:login_page/signup_page.dart';
+import 'color.dart' as Color;
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key, required void showRegisterPage});
+  final VoidCallback showRegisterPage;
+
+  const LoginPage({super.key, required this.showRegisterPage});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -13,201 +16,222 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final email = TextEditingController();
   final pwd = TextEditingController();
+  var hintTextEmail = 'Enter Your Mail Id';
+  var hintTextPassword = 'Enter Your Password';
+  bool _obscureText = true;
 
-  void signUserIn() async {
+  Future signUserIn() async {
     showDialog(
         context: context,
         builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         });
+
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email.text,
-        password: pwd.text,
-      );
+          email: email.text.trim(), password: pwd.text.trim());
+      if (context.mounted) Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
-      Navigator.pop(context);
-      if (e.code == 'auth/user-not-found' || e.code == 'auth/wrong-password') {
-        wrongCredentials();
-      }
+      Navigator.of(context).pop();
+      displayMessage(e.code);
     }
-    Navigator.pop(context);
   }
 
-  void wrongCredentials() {
+  void displayMessage(String message) {
     showDialog(
         context: context,
-        builder: (context) {
-          return const AlertDialog(
-            title: Text(
-              'Invalid username or password',
-            ),
-          );
-        });
+        builder: (context) => AlertDialog(
+              title: Text(message),
+            ));
+  }
+
+  @override
+  void dispose() {
+    email.dispose();
+    pwd.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Color.AppColor.homePageBackground,
       appBar: AppBar(
         title: const Text('LogIn Page'),
-        backgroundColor: Colors.purple[900],
+        backgroundColor: Color.AppColor.circuitsColor,
+        foregroundColor: Colors.white,
       ),
       body: SafeArea(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 50.0,
-              ),
-              const Icon(Icons.lock, size: 180.0),
-              const Text(
-                'Enter Your Credentials to LogIn',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 50.0,
                 ),
-              ),
-              const SizedBox(
-                height: 30.0,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 15.0, horizontal: 25.0),
-                child: TextField(
-                  controller: email,
-                  decoration: InputDecoration(
-                    fillColor: Colors.purple[200],
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.blueGrey),
-                        borderRadius: BorderRadius.circular(20.0)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.green),
-                        borderRadius: BorderRadius.circular(20.0)),
-                    prefixIcon: const Icon(Icons.account_circle_sharp),
-                    labelText: 'username',
-                    labelStyle: TextStyle(
-                      color: Colors.grey[900],
-                      fontSize: 20.0,
-                    ),
+                const Icon(Icons.lock, size: 180.0),
+                const Text(
+                  'Enter Your Credentials to LogIn',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
                   ),
                 ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 0.0, horizontal: 25.0),
-                child: TextField(
-                  controller: pwd,
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  decoration: InputDecoration(
-                    fillColor: Colors.purple[200],
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.blueGrey),
-                        borderRadius: BorderRadius.circular(20.0)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.green),
-                        borderRadius: BorderRadius.circular(20.0)),
-                    prefixIcon: const Icon(Icons.password),
-                    labelText: 'password',
-                    labelStyle: TextStyle(
-                      color: Colors.grey[900],
-                      fontSize: 20.0,
-                    ),
-                  ),
+                const SizedBox(
+                  height: 30.0,
                 ),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              SizedBox(
-                height: 55.0,
-                width: 360.0,
-                child: ElevatedButton(
-                  onPressed: () {
-                    signUserIn();
-                  },
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.purple[900]!),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    )),
-                  ),
-                  child: const Text(
-                    'Sign In',
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return const ForgotPassword();
-                      }));
-                    },
-                    child: Text(
-                      'Forgot Password?',
-                      style: TextStyle(
-                        fontSize: 17.0,
-                        color: Colors.purple[600],
-                        fontWeight: FontWeight.bold,
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 15.0, horizontal: 25.0),
+                  child: TextField(
+                    controller: email,
+                    decoration: InputDecoration(
+                      fillColor: Color.AppColor.secondPageTopIconColor,
+                      filled: true,
+                      hintText: hintTextEmail,
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.blueGrey),
+                          borderRadius: BorderRadius.circular(20.0)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.green),
+                          borderRadius: BorderRadius.circular(20.0)),
+                      prefixIcon: const Icon(Icons.account_circle_sharp),
+                      labelText: 'Email',
+                      labelStyle: TextStyle(
+                        color: Colors.grey[900],
+                        fontSize: 20.0,
                       ),
                     ),
                   ),
-                ]),
-              ),
-              const SizedBox(
-                height: 200.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Don't have an account? "),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                    child:
-                        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const SignUserUp(showLoginPage: null,);
-                          }));
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 0.0, horizontal: 25.0),
+                  child: TextField(
+                    controller: pwd,
+                    enableSuggestions: false,
+                    obscureText: _obscureText,
+                    autocorrect: false,
+                    decoration: InputDecoration(
+                      fillColor: Color.AppColor.secondPageTopIconColor,
+                      hintText: hintTextPassword,
+                      filled: true,
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.blueGrey),
+                          borderRadius: BorderRadius.circular(20.0)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.green),
+                          borderRadius: BorderRadius.circular(20.0)),
+                      prefixIcon: const Icon(Icons.password),
+                      labelText: 'password',
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
                         },
+                      ),
+                      labelStyle: TextStyle(
+                        color: Colors.grey[900],
+                        fontSize: 20.0,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 15.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(0.0),
+                  child: GestureDetector(
+                    onTap: signUserIn,
+                    child: Container(
+                      // padding: const EdgeInsets.all(15.0),
+                      height: 55.0,
+                      width: 360.0,
+                      decoration: BoxDecoration(
+                        color: Color.AppColor.circuitsColor,
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: const Center(
                         child: Text(
-                          "SIGN UP",
-                          style: TextStyle(
-                            fontSize: 17.0,
-                            color: Colors.purple[600],
-                            fontWeight: FontWeight.bold,
-                          ),
+                          'Sign In',
+                          style: TextStyle(fontSize: 25.0, color: Colors.white),
                         ),
                       ),
-                    ]),
+                    ),
                   ),
-                ],
-              ),
-            ],
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return const ForgotPassword();
+                            }));
+                          },
+                          child: Text(
+                            'Forgot Password?',
+                            style: TextStyle(
+                              fontSize: 17.0,
+                              color: Color
+                                  .AppColor.secondPageContainerGradient2ndColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ]),
+                ),
+                const SizedBox(
+                  height: 180.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Don't have an account? "),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return SignUserUp(
+                                    showLoginPage: () {},
+                                  );
+                                }));
+                              },
+                              child: Text(
+                                "SIGN UP",
+                                style: TextStyle(
+                                  fontSize: 17.0,
+                                  color: Color.AppColor
+                                      .secondPageContainerGradient2ndColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ]),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
