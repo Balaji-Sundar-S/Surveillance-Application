@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'color.dart' as Color;
+import 'color.dart' as color;
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -49,9 +49,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.AppColor.homePageBackground,
+      backgroundColor: color.AppColor.homePageBackground,
       appBar: AppBar(
-        backgroundColor: Color.AppColor.circuitsColor,
+        backgroundColor: color.AppColor.circuitsColor,
         foregroundColor: Colors.white,
       ),
       body: Column(
@@ -64,7 +64,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
-                  color: Color.AppColor.secondPageContainerGradient2ndColor),
+                  color: color.AppColor.secondPageContainerGradient2ndColor),
               textAlign: TextAlign.center,
             ),
           ),
@@ -74,7 +74,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             child: TextField(
               controller: email,
               decoration: InputDecoration(
-                fillColor: Color.AppColor.secondPageTopIconColor,
+                fillColor: color.AppColor.secondPageTopIconColor,
                 filled: true,
                 enabledBorder: OutlineInputBorder(
                     borderSide: const BorderSide(color: Colors.blueGrey),
@@ -93,7 +93,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           ),
           MaterialButton(
             onPressed: passwordReset,
-            color: Color.AppColor.circuitsColor,
+            color: color.AppColor.circuitsColor,
             splashColor: Colors.white,
             textColor: Colors.white,
             child: const Text(

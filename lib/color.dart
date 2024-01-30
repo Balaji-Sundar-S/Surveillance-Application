@@ -13,8 +13,8 @@ class AppColor{
   static Color homePagePlaneColor=const Color(0xFFa2a2b1);
   static Color secondPageTopIconColor=const Color(0xFFb7bce8);
   static Color secondPageTitleColor=const Color(0xFFfefeff);
-  static Color secondPageContainerGradient1stColor=Color.fromARGB(255, 36, 63, 143);
-  static Color secondPageContainerGradient2ndColor=Color.fromARGB(255, 29, 46, 98);
+  static Color secondPageContainerGradient1stColor=const Color.fromARGB(255, 36, 63, 143);
+  static Color secondPageContainerGradient2ndColor=const Color.fromARGB(255, 29, 46, 98);
   static Color secondPageIconColor=const Color(0xFFfafafe);
   static Color loopColor=const Color(0xFF6d8dea);
   static Color setsColor=const Color(0xFF9999a9);

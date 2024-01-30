@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login_page/login_page.dart';
-import 'color.dart' as Color;
+import 'color.dart' as color;
 
 class SignUserUp extends StatefulWidget {
   final VoidCallback showLoginPage;
@@ -60,9 +60,9 @@ class _SignUserUpState extends State<SignUserUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.AppColor.homePageBackground,
+        backgroundColor: color.AppColor.homePageBackground,
         appBar: AppBar(
-          backgroundColor: Color.AppColor.circuitsColor,
+          backgroundColor: color.AppColor.circuitsColor,
           foregroundColor: Colors.white,
         ),
         body: SafeArea(
@@ -86,7 +86,7 @@ class _SignUserUpState extends State<SignUserUp> {
                 child: TextField(
                   controller: email,
                   decoration: InputDecoration(
-                    fillColor: Color.AppColor.secondPageTopIconColor,
+                    fillColor: color.AppColor.secondPageTopIconColor,
                     filled: true,
                     enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.blueGrey),
@@ -112,7 +112,7 @@ class _SignUserUpState extends State<SignUserUp> {
                   enableSuggestions: false,
                   autocorrect: false,
                   decoration: InputDecoration(
-                    fillColor: Color.AppColor.secondPageTopIconColor,
+                    fillColor: color.AppColor.secondPageTopIconColor,
                     filled: true,
                     enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.blueGrey),
@@ -148,7 +148,7 @@ class _SignUserUpState extends State<SignUserUp> {
                   enableSuggestions: false,
                   autocorrect: false,
                   decoration: InputDecoration(
-                    fillColor: Color.AppColor.secondPageTopIconColor,
+                    fillColor: color.AppColor.secondPageTopIconColor,
                     filled: true,
                     enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.blueGrey),
@@ -183,7 +183,7 @@ class _SignUserUpState extends State<SignUserUp> {
                     height: 55.0,
                     width: 360.0,
                     decoration: BoxDecoration(
-                      color: Color.AppColor.circuitsColor,
+                      color: color.AppColor.circuitsColor,
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     child: const Center(
@@ -218,7 +218,7 @@ class _SignUserUpState extends State<SignUserUp> {
                               "SIGN IN",
                               style: TextStyle(
                                 fontSize: 17.0,
-                                color: Color.AppColor
+                                color: color.AppColor
                                     .secondPageContainerGradient2ndColor,
                                 fontWeight: FontWeight.bold,
                               ),

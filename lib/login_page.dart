@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login_page/forgot_password_page.dart';
 import 'package:login_page/signup_page.dart';
-import 'color.dart' as Color;
+import 'color.dart' as color;
 
 class LoginPage extends StatefulWidget {
   final VoidCallback showRegisterPage;
@@ -55,10 +55,10 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.AppColor.homePageBackground,
+      backgroundColor: color.AppColor.homePageBackground,
       appBar: AppBar(
         title: const Text('LogIn Page'),
-        backgroundColor: Color.AppColor.circuitsColor,
+        backgroundColor: color.AppColor.circuitsColor,
         foregroundColor: Colors.white,
       ),
       body: SafeArea(
@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: TextField(
                     controller: email,
                     decoration: InputDecoration(
-                      fillColor: Color.AppColor.secondPageTopIconColor,
+                      fillColor: color.AppColor.secondPageTopIconColor,
                       filled: true,
                       hintText: hintTextEmail,
                       enabledBorder: OutlineInputBorder(
@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                     obscureText: _obscureText,
                     autocorrect: false,
                     decoration: InputDecoration(
-                      fillColor: Color.AppColor.secondPageTopIconColor,
+                      fillColor: color.AppColor.secondPageTopIconColor,
                       hintText: hintTextPassword,
                       filled: true,
                       enabledBorder: OutlineInputBorder(
@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 55.0,
                       width: 360.0,
                       decoration: BoxDecoration(
-                        color: Color.AppColor.circuitsColor,
+                        color: color.AppColor.circuitsColor,
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                       child: const Center(
@@ -187,7 +187,7 @@ class _LoginPageState extends State<LoginPage> {
                             'Forgot Password?',
                             style: TextStyle(
                               fontSize: 17.0,
-                              color: Color
+                              color: color
                                   .AppColor.secondPageContainerGradient2ndColor,
                               fontWeight: FontWeight.bold,
                             ),
@@ -220,7 +220,7 @@ class _LoginPageState extends State<LoginPage> {
                                 "SIGN UP",
                                 style: TextStyle(
                                   fontSize: 17.0,
-                                  color: Color.AppColor
+                                  color: color.AppColor
                                       .secondPageContainerGradient2ndColor,
                                   fontWeight: FontWeight.bold,
                                 ),

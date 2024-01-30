@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login_page/videos.dart';
-import 'color.dart' as Color;
+import 'color.dart' as color;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
 
@@ -43,7 +43,7 @@ class _HomepageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.AppColor.homePageBackground,
+      backgroundColor: color.AppColor.homePageBackground,
       body: Container(
         padding: const EdgeInsets.only(top: 70, left: 30, right: 30),
         child: Column(
@@ -54,25 +54,25 @@ class _HomepageState extends State<HomePage> {
                   "Dashboard",
                   style: TextStyle(
                       fontSize: 30,
-                      color: Color.AppColor.homePageTitle,
+                      color: color.AppColor.homePageTitle,
                       fontWeight: FontWeight.w700),
                 ),
                 Expanded(child: Container()),
                 GestureDetector(
                   onTap: signOut,
                   child: Icon(Icons.arrow_back_ios,
-                      size: 20, color: Color.AppColor.homePageIcons),
+                      size: 20, color: color.AppColor.homePageIcons),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 Icon(Icons.calendar_today_outlined,
-                    size: 20, color: Color.AppColor.homePageIcons),
+                    size: 20, color: color.AppColor.homePageIcons),
                 const SizedBox(
                   width: 15,
                 ),
                 Icon(Icons.arrow_forward_ios,
-                    size: 20, color: Color.AppColor.homePageIcons),
+                    size: 20, color: color.AppColor.homePageIcons),
               ],
             ),
             const SizedBox(
@@ -84,7 +84,7 @@ class _HomepageState extends State<HomePage> {
                   "Video Streaming",
                   style: TextStyle(
                       fontSize: 20,
-                      color: Color.AppColor.homePageSubtitle,
+                      color: color.AppColor.homePageSubtitle,
                       fontWeight: FontWeight.w700),
                 ),
                 Expanded(child: Container()),
@@ -92,14 +92,14 @@ class _HomepageState extends State<HomePage> {
                   "Details",
                   style: TextStyle(
                     fontSize: 20,
-                    color: Color.AppColor.homePageDetail,
+                    color: color.AppColor.homePageDetail,
                   ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 Icon(Icons.arrow_forward,
-                    size: 20, color: Color.AppColor.homePageIcons)
+                    size: 20, color: color.AppColor.homePageIcons)
               ],
             ),
             const SizedBox(
@@ -111,8 +111,8 @@ class _HomepageState extends State<HomePage> {
               decoration: BoxDecoration(
                   gradient: LinearGradient(
                       colors: [
-                        Color.AppColor.gradientFirst.withOpacity(0.8),
-                        Color.AppColor.gradientSecond.withOpacity(0.9),
+                        color.AppColor.gradientFirst.withOpacity(0.8),
+                        color.AppColor.gradientSecond.withOpacity(0.9),
                       ],
                       begin: Alignment.bottomLeft,
                       end: Alignment.centerRight //defining the gradient
@@ -126,7 +126,7 @@ class _HomepageState extends State<HomePage> {
                     BoxShadow(
                         offset: const Offset(10, 10),
                         blurRadius: 20,
-                        color: Color.AppColor.gradientSecond.withOpacity(0.5))
+                        color: color.AppColor.gradientSecond.withOpacity(0.5))
                   ]),
               child: Container(
                 padding: const EdgeInsets.only(left: 20, top: 25, right: 20),
@@ -140,7 +140,7 @@ class _HomepageState extends State<HomePage> {
                       DateFormat.yMMMEd().format(DateTime.now()),
                       style: TextStyle(
                           fontSize: 16,
-                          color: Color.AppColor.homePageContainerTextSmall),
+                          color: color.AppColor.homePageContainerTextSmall),
                     ),
                     const SizedBox(
                       height: 5,
@@ -149,7 +149,7 @@ class _HomepageState extends State<HomePage> {
                       "Print on process",
                       style: TextStyle(
                           fontSize: 25,
-                          color: Color.AppColor.homePageContainerTextSmall),
+                          color: color.AppColor.homePageContainerTextSmall),
                     ),
                     const SizedBox(
                       height: 1,
@@ -158,7 +158,7 @@ class _HomepageState extends State<HomePage> {
                       "Metal alignment process",
                       style: TextStyle(
                         fontSize: 25,
-                        color: Color.AppColor.homePageContainerTextSmall,
+                        color: color.AppColor.homePageContainerTextSmall,
                       ),
                     ),
                     const SizedBox(
@@ -172,7 +172,7 @@ class _HomepageState extends State<HomePage> {
                             Icon(
                               Icons.adjust_rounded,
                               size: 20,
-                              color: Color.AppColor.secondPageIconColor,
+                              color: color.AppColor.secondPageIconColor,
                             ),
                             const SizedBox(
                               width: 5,
@@ -180,7 +180,7 @@ class _HomepageState extends State<HomePage> {
                             Text("Live",
                                 style: TextStyle(
                                   fontSize: 15,
-                                  color: Color.AppColor.secondPageIconColor,
+                                  color: color.AppColor.secondPageIconColor,
                                 )),
                           ],
                         ),
@@ -192,7 +192,7 @@ class _HomepageState extends State<HomePage> {
                                 borderRadius: BorderRadius.circular(60),
                                 boxShadow: [
                                   BoxShadow(
-                                      color: Color.AppColor.gradientFirst,
+                                      color: color.AppColor.gradientFirst,
                                       blurRadius: 10,
                                       offset: Offset(4, 8))
                                 ]),
@@ -231,12 +231,12 @@ class _HomepageState extends State<HomePage> {
                           BoxShadow(
                               blurRadius: 40,
                               offset: Offset(8, 10),
-                              color: Color.AppColor.gradientSecond
+                              color: color.AppColor.gradientSecond
                                   .withOpacity(0.3)),
                           BoxShadow(
                               blurRadius: 10,
                               offset: Offset(-1, -5),
-                              color: Color.AppColor.gradientSecond
+                              color: color.AppColor.gradientSecond
                                   .withOpacity(0.3))
                         ]),
                   ),
@@ -267,7 +267,7 @@ class _HomepageState extends State<HomePage> {
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Color.AppColor.homePageDetail),
+                              color: color.AppColor.homePageDetail),
                         ),
                         SizedBox(
                           height: 10,
@@ -288,13 +288,13 @@ class _HomepageState extends State<HomePage> {
                                       "Videos",
                                       style: TextStyle(
                                           fontSize: 15,
-                                          color: Color
+                                          color: color
                                               .AppColor.homePagePlaneColor),
                                     ),
                                     Icon(
                                       Icons.double_arrow_rounded,
                                       size: 20,
-                                      color: Color.AppColor.homePagePlaneColor,
+                                      color: color.AppColor.homePagePlaneColor,
                                     ),
                                   ],
                                 ),
@@ -314,7 +314,7 @@ class _HomepageState extends State<HomePage> {
                                     " available here\n",
                                 style: TextStyle(
                                     fontSize: 10,
-                                    color: Color.AppColor.homePagePlaneColor),
+                                    color: color.AppColor.homePagePlaneColor),
                               ))
                             ],
                           ),
@@ -333,7 +333,7 @@ class _HomepageState extends State<HomePage> {
                   style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.w700,
-                      color: Color.AppColor.homePageTitle),
+                      color: color.AppColor.homePageTitle),
                 )
               ],
             ), //text analysis
@@ -367,12 +367,12 @@ class _HomepageState extends State<HomePage> {
                                 BoxShadow(
                                     blurRadius: 3,
                                     offset: Offset(5, 5),
-                                    color: Color.AppColor.gradientSecond
+                                    color: color.AppColor.gradientSecond
                                         .withOpacity(0.1)),
                                 BoxShadow(
                                     blurRadius: 3,
                                     offset: Offset(-5, -5),
-                                    color: Color.AppColor.gradientSecond
+                                    color: color.AppColor.gradientSecond
                                         .withOpacity(0.1))
                               ]),
                           child: Center(
@@ -382,7 +382,7 @@ class _HomepageState extends State<HomePage> {
                                 info[a]["title"],
                                 style: TextStyle(
                                     fontSize: 17,
-                                    color: Color.AppColor.homePageDetail),
+                                    color: color.AppColor.homePageDetail),
                               ),
                             ),
                           ),
@@ -403,12 +403,12 @@ class _HomepageState extends State<HomePage> {
                                 BoxShadow(
                                     blurRadius: 3,
                                     offset: Offset(5, 5),
-                                    color: Color.AppColor.gradientSecond
+                                    color: color.AppColor.gradientSecond
                                         .withOpacity(0.1)),
                                 BoxShadow(
                                     blurRadius: 3,
                                     offset: Offset(-5, -5),
-                                    color: Color.AppColor.gradientSecond
+                                    color: color.AppColor.gradientSecond
                                         .withOpacity(0.1))
                               ]),
                           child: Center(
@@ -418,7 +418,7 @@ class _HomepageState extends State<HomePage> {
                                 info[b]["title"],
                                 style: TextStyle(
                                     fontSize: 17,
-                                    color: Color.AppColor.homePageDetail),
+                                    color: color.AppColor.homePageDetail),
                               ),
                             ),
                           ),
