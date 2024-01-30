@@ -110,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                       vertical: 0.0, horizontal: 25.0),
                   child: TextField(
                     controller: pwd,
-                    enableSuggestions: false,
+                    enableSuggestions: true,
                     obscureText: _obscureText,
                     autocorrect: false,
                     decoration: InputDecoration(

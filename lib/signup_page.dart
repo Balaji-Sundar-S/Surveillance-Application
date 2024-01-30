@@ -215,6 +215,7 @@ class _SignUserUpState extends State<SignUserUp> {
                               }));
                             },
                             child: Text(
+
                               "SIGN IN",
                               style: TextStyle(
                                 fontSize: 17.0,

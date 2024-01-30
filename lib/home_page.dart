@@ -43,6 +43,14 @@ class _HomepageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: color.AppColor.circuitsColor,
+        foregroundColor: Colors.white,
+        actions: [
+          GestureDetector(onTap: signOut, child: const Icon(Icons.logout, size: 25.0)),
+          const SizedBox(width: 20.0),
+        ],
+      ),
       backgroundColor: color.AppColor.homePageBackground,
       body: Container(
         padding: const EdgeInsets.only(top: 70, left: 30, right: 30),
