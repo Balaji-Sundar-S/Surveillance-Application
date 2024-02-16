@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomepageState extends State<HomePage> {
   _launchURL() async {
     //final result = await Process.run('/usr/bin/python', ['/home/pi/cam2.py']);
-    final Uri url = Uri.parse('http://192.168.209.108:5000/video_feed');
+    final Uri url = Uri.parse('http://0.0.0.0:5000/');
     if (!await launchUrl(url)) {
       throw Exception('Could not launch _url');
     }
