@@ -7,7 +7,7 @@ This Flutter project provides a fully-fledged login and signup page with passwor
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/flutter-login-signup-live-streaming.git
+git clone https://github.com/Balaji-Sundar-S/Surveillance-Application.git
 ```
 
 A few resources to get you started if this is your first Flutter project:
