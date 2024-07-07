@@ -10,11 +10,6 @@ This Flutter project provides a fully-fledged login and signup page with passwor
 git clone https://github.com/Balaji-Sundar-S/Surveillance-Application.git
 ```
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
 ## Features
 
 - **User Authentication**: Users can sign up and log in securely using their email and password. Firebase Authentication is used to handle the authentication process.
